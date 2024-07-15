@@ -1,7 +1,7 @@
 var sas = sas || {};
 sas.cmd = sas.cmd || [];
 sas.cmd.push(function() {
-    sas.setup({ networkid: 9999, domain: "https://adapi.smartadserver.com", async: true });
+    sas.setup({ networkid: 9999, domain: "https://adapi.smartadserver.com", async: true, renderMode: 2 });
 });
 sas.cmd.push(function() {
     sas.call("onecall", {
