@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MH+ Custom Render</title>
+    <script type="application/javascript" src="https://ced.sascdn.com/tag/1/smart.js" async></script>
+    <script type="text/javascript" src="https://tagmanager.smartadserver.com/1/1234/smart.prebid.js" async></script>
+    <script>
+        var sas = sas || {};
+        sas.cmd = sas.cmd || [];
+        sas.cmd.push(function() {
+            sas.setup({ networkid: 9999, domain: "https://adapi.smartadserver.com", async: true, renderMode: 2 });
+        });
+        sas.cmd.push(function() {
+            sas.call("onecall", {
+                siteId: 12000,
+                pageId: 67000,
+                formats: [
+                    { id: 34000, tagId: "megabanner_format" }
+                    ,{ id: 35000, tagId: "lat_format_right"  }
+                    ,{ id: 36000, tagId: "lat_format_left"  }
+                ],
+                target: ''
+            },{
+                onAd: function(data){
+                    if (data.tagId == "megabanner_format") {
+                        sas.render("lat_format_right");
+                        sas.render("lat_format_left");
+                    }
+                },
+                onNoad: function(data){                
+                    if(data.tagId == 'megabanner_format') {
+                        // Check if a given bidder is not the winner (e.g. appnexus)
+                        if(
+                            pbjsEqtv.getHighestCpmBids("12000/publisherdomain.com/" + data.formatId)[0] === undefined ||
+                            pbjsEqtv.getHighestCpmBids("12000/publisherdomain.com/" + data.formatId)[0].bidderCode != "appnexus"
+                        ) {
+                            sas.render('lat_format_right');
+                            sas.render('lat_format_left');
+                        }
+                        else {
+                            // Lateral formats will not be rendered
+                            console.log('appnexus is the winner');
+                            
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div id="megabanner_format"></div>
+        <script type="application/javascript">
+            sas.cmd.push(function() {
+                sas.render("megabanner_format");
+            });
+        </script>
+    </header>
+    <section>
+    </section>
+    <footer></footer>
+</body>
+</html>
