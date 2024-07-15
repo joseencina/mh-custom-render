@@ -94,7 +94,7 @@ sas.call("onecall", {
 ### 3. Render Formats on `Noad` Event
 When a `Noad` event is linked to a format, Equativ determines the presence of a Prebid winner or the absence of available ads. Based on this, decide whether to render other formats.
 
-Example code snippet:
+Example code snippet. Replace `appnexus` by the required bidder:
 
 ```javascript
 sas.call("onecall", {
@@ -121,7 +121,7 @@ sas.call("onecall", {
 ```
 
 > [!NOTE]
-> Whether the expected Prebid winner differs or no ad is available, render other formats accordingly.
+> Whether the expected Prebid winner differs or no ad is available, the other formats will be rendered accordingly.
 
 > [!TIP]
 > Both `onAd` and `onNoad` event handlers receive format-specific information through the `data` parameter.
